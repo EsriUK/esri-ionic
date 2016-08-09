@@ -1,0 +1,13 @@
+<ion-view view-title="Scene View">
+  <ion-content scroll="false">
+
+	<esri-scene-view map="sceneCtrl.map" on-load="sceneCtrl.onViewLoaded">
+		<span id="layerToggle" ng-show="sceneCtrl.viewLoaded">
+			<label><input type="checkbox" ng-model="sceneCtrl.transportationLyr.visible" /> Transportation</label>
+		</span>
+	</esri-scene-view>
+
+	<button ng-click="sceneCtrl.changeMap()">Change map for this esri-scene-view</button>
+    
+  </ion-content>
+</ion-view>

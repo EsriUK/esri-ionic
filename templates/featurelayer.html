@@ -1,0 +1,18 @@
+<ion-view view-title="Featuer Layer">
+  <ion-content scroll="false">
+
+	<esri-map-view map="featuerelayerCtrl.map" on-create="featuerelayerCtrl.onViewCreated"
+		view-options="{
+			extent: {
+				xmin: -9177811,
+				ymin: 4247000,
+				xmax: -9176791,
+				ymax: 4247784,
+				spatialReference: 102100
+			}
+		}">
+		<esri-home-button view="featuerelayerCtrl.mapView"></esri-home-button>
+	</esri-map-view>
+    
+  </ion-content>
+</ion-view>
