@@ -50,7 +50,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'esri.map'])
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/featurelayer.html',
-				controller: 'FeatureLayerController as featuerelayerCtrl'
+				controller: 'FeatureLayerController as featurelayerCtrl'
+			}
+		}
+	})
+		
+	.state('app.geodesicbuffers', {
+		url: '/geodesicbuffers',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/geodesicbuffers.html',
+				controller: 'GeodesicBuffersController as geodesicbuffersCtrl'
 			}
 		}
 	});
