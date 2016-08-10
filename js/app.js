@@ -55,12 +55,52 @@ angular.module('starter', ['ionic', 'starter.controllers', 'esri.map'])
 		}
 	})
 		
+	.state('app.popuptemplate', {
+		url: '/popuptemplate',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/popuptemplate.html',
+				controller: 'PopupTemplateController as popuptemplateCtrl'
+			}
+		}
+	})
+		
+	.state('app.search', {
+		url: '/search',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/search.html',
+				controller: 'SearchController as searchCtrl'
+			}
+		}
+	})
+		
 	.state('app.geodesicbuffers', {
 		url: '/geodesicbuffers',
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/geodesicbuffers.html',
 				controller: 'GeodesicBuffersController as geodesicbuffersCtrl'
+			}
+		}
+	})
+		
+	.state('app.propertybinding', {
+		url: '/propertybinding',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/propertybinding.html',
+				controller: 'PropertyBindingController as propertybindingCtrl'
+			}
+		}
+	})
+		
+	.state('app.registrypattern', {
+		url: '/registrypattern',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/registrypattern.html',
+				controller: 'RegistryPatternController as registrypatternCtrl'
 			}
 		}
 	});

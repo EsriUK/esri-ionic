@@ -1,3 +1,6 @@
+@import url('registry-pattern.css');
+@import url('property-binding.css');
+ 
  .esri-view {
 	height: 100%;
 }

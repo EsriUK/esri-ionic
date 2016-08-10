@@ -1,0 +1,17 @@
+<ion-view view-title="Registry Pattern" class="view-registry-pattern">
+  <ion-content scroll="false">
+
+	<esri-map-view
+		map="registrypatternCtrl.map" 
+		register-as="myMapView" 
+		view-options="registrypatternCtrl.mapViewOptions" 
+		on-create="registrypatternCtrl.onMapViewCreated"
+	></esri-map-view>
+
+	<div id="results" ng-controller="RegistryPatternOutputController as outputCtrl" ng-show="outputCtrl.mapViewPoint">
+		<span>X: {{ outputCtrl.mapViewPoint.x }}</span>
+		<span>Y: {{ outputCtrl.mapViewPoint.y }}</span>
+	</div>
+
+  </ion-content>
+</ion-view>

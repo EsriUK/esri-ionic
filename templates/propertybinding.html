@@ -1,0 +1,28 @@
+<ion-view view-title="Property Binding" class="view-property-binding">
+  <ion-content scroll="false">
+
+	<esri-map-view map="propertybindingCtrl.map" on-create="propertybindingCtrl.onViewCreated"
+    view-options="{
+        zoom: 11,
+        center: [-6.66, 62.23]
+    }">
+	</esri-map-view>
+
+	<div id="controls">
+		
+		<p>These properties are updated directly by the MapView:</p>
+		
+		<ul>
+			<li><strong>Lat:</strong> {{ propertybindingCtrl.mapView.center.latitude | number:3 }}, <strong>Lng:</strong> {{ propertybindingCtrl.mapView.center.longitude | number:3 }}</li>
+			<li><strong>Scale:</strong> {{ propertybindingCtrl.mapView.scale | number:2 }}</li>
+			<li><strong>Zoom:</strong> {{ propertybindingCtrl.mapView.zoom | number:2 }}</li>
+		</ul>
+
+		<ul>
+			<li><strong>Rotation:</strong> <input type="number" ng-model="propertybindingCtrl.mapView.rotation" /></li>
+		</ul>
+
+	</div>
+
+  </ion-content>
+</ion-view>

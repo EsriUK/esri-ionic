@@ -7,8 +7,6 @@ angular.module('starter.controllers', [])
 
 .controller('VectorController', function(esriLoader) {
 
-	console.log('vector tiles');
-
 	var self = this;
 	esriLoader.require([
 		'esri/Map',
@@ -174,6 +172,149 @@ angular.module('starter.controllers', [])
 				geometry: buffer
 			}));
 		}
+	});
+
+})
+
+.controller('PopupTemplateController', function(esriLoader) {
+
+	var self = this;
+        // load esri modules
+        esriLoader.require([
+            'esri/Map',
+            'esri/PopupTemplate',
+            'esri/layers/FeatureLayer'
+        ], function(Map, PopupTemplate, FeatureLayer) {
+            // create the map
+            self.map = new Map({
+                basemap: 'gray'
+            });
+            var template = new PopupTemplate({
+                title: 'Marriage in NY, Zip Code: {ZIP}',
+                content: '<p>As of 2015, <b>{MARRIEDRATE}%</b> of the population in this zip code is married.</p>' +
+                    '<ul><li>{MARRIED_CY} people are married</li>' +
+                    '<li>{NEVMARR_CY} have never married</li>' +
+                    '<li>{DIVORCD_CY} are divorced</li><ul>',
+                fieldInfos: [{
+                    fieldName: 'MARRIED_CY',
+                    format: {
+                        digitSeparator: true,
+                        places: 0
+                    }
+                }, {
+                    fieldName: 'NEVMARR_CY',
+                    format: {
+                        digitSeparator: true,
+                        places: 0
+                    }
+                }, {
+                    fieldName: 'DIVORCD_CY',
+                    format: {
+                        digitSeparator: true,
+                        places: 0
+                    }
+                }]
+            });
+
+            var featureLayer = new FeatureLayer({
+                url: '//services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/NYCDemographics1/FeatureServer/0',
+                outFields: ['*'],
+                popupTemplate: template
+            });
+
+            self.map.add(featureLayer);
+        });
+
+})
+
+.controller('SearchController', function(esriLoader, $scope) {
+	var self = this;
+	esriLoader.require([
+		'esri/Map',
+		'esri/widgets/Search'
+	], function(Map, Search) {
+		self.map = new Map({
+			basemap: 'streets-relief-vector'
+		});
+
+		self.onViewCreated = function(view) {
+			var searchWidget = new Search({
+				view: view
+			});
+			searchWidget.startup();
+
+			// add the search widget to the top left corner of the view
+			view.ui.add(searchWidget, {
+				position: 'top-left',
+				index: 0
+			});
+
+			// destroy the search widget when angular scope is also being destroyed
+			$scope.$on('$destroy', function() {
+				searchWidget.destroy();
+			});
+		};
+	});
+})
+
+.controller('PropertyBindingController', function(esriLoader, $scope) {
+	var self = this;
+	esriLoader.require('esri/Map', function(Map) {
+		// Create the map
+		self.map = new Map({
+			basemap: 'satellite'
+		});
+	});
+
+	this.onViewCreated = function(view) {
+		self.mapView = view;
+		// Setup a JSAPI 4.x property watch outside of Angular
+		//  and update bound Angular controller properties.
+		self.mapView.watch('center,scale,zoom,rotation', function() {
+			$scope.$applyAsync('vm.mapView');
+		});
+	};
+})
+
+.controller('RegistryPatternController', function(esriLoader) {
+	var self = this;
+	
+	self.mapViewOptions = {
+		zoom: 4,
+		center: [15, 65]
+	};
+	
+	self.sceneViewOptions = {
+		zoom: 4,
+		center: [15, 65]
+	};
+	// load esri modules
+	esriLoader.require([
+		'esri/Map'
+	], function(Map) {
+		// create the map
+		self.map = new Map({
+			basemap: 'streets'
+		});
+
+		// NOTE: This is one way to get a reference to the map or scene view within
+		//  the SAME parent controller, by binding to the on-create callback.
+		self.onMapViewCreated = function(view) {
+			self.mapView = view;
+			// do something with the map view
+		};
+	});
+})
+
+.controller('RegistryPatternOutputController', function(esriRegistry, $scope) {
+	
+	var self = this;
+
+	esriRegistry.get('myMapView').then(function(res) {
+		res.view.on('click', function(e) {
+			self.mapViewPoint = e.mapPoint;
+			$scope.$apply();
+		});
 	});
 
 });
